@@ -12,6 +12,8 @@ export const KEEP_SELECTORS = [
   'iframe[src^="https://player.vimeo"]',
   'iframe[src^="http://player.vimeo"]',
   'iframe[src^="https://www.redditmedia.com"]',
+  'blockquote[class^="instagram-media"]',
+  'blockquote[class^="twitter-tweet"]',
 ];
 
 // A list of tags to strip from the output if we encounter them.
@@ -35,7 +37,6 @@ export const REMOVE_ATTR_SELECTORS = REMOVE_ATTRS.map(
 export const REMOVE_ATTR_LIST = REMOVE_ATTRS.join(',');
 export const WHITELIST_ATTRS = [
   'src',
-  'srcset',
   'sizes',
   'type',
   'href',
@@ -45,6 +46,8 @@ export const WHITELIST_ATTRS = [
   'xlink:href',
   'width',
   'height',
+  'allowfullscreen',
+  'data-instgrm-.*',
 ];
 
 export const WHITELIST_ATTRS_RE = new RegExp(

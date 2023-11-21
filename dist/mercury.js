@@ -360,10 +360,10 @@ var SPACER_RE = new RegExp('transparent|spacer|blank', 'i'); // The class we wil
 // but would normally remove
 
 var KEEP_CLASS = 'mercury-parser-keep';
-var KEEP_SELECTORS = ['iframe[src^="https://www.youtube.com"]', 'iframe[src^="https://www.youtube-nocookie.com"]', 'iframe[src^="http://www.youtube.com"]', 'iframe[src^="https://player.vimeo"]', 'iframe[src^="http://player.vimeo"]', 'iframe[src^="https://www.redditmedia.com"]']; // A list of tags to strip from the output if we encounter them.
+var KEEP_SELECTORS = ['iframe[src^="https://www.youtube.com"]', 'iframe[src^="https://www.youtube-nocookie.com"]', 'iframe[src^="http://www.youtube.com"]', 'iframe[src^="https://player.vimeo"]', 'iframe[src^="http://player.vimeo"]', 'iframe[src^="https://www.redditmedia.com"]', 'blockquote[class^="instagram-media"]', 'blockquote[class^="twitter-tweet"]']; // A list of tags to strip from the output if we encounter them.
 
 var STRIP_OUTPUT_TAGS = ['title', 'script', 'noscript', 'link', 'style', 'hr', 'embed', 'iframe', 'object']; // cleanAttributes
-var WHITELIST_ATTRS = ['src', 'srcset', 'sizes', 'type', 'href', 'class', 'id', 'alt', 'xlink:href', 'width', 'height'];
+var WHITELIST_ATTRS = ['src', 'sizes', 'type', 'href', 'class', 'id', 'alt', 'xlink:href', 'width', 'height', 'allowfullscreen', 'data-instgrm-.*'];
 var WHITELIST_ATTRS_RE = new RegExp("^(".concat(WHITELIST_ATTRS.join('|'), ")$"), 'i'); // removeEmpty
 
 var CLEAN_CONDITIONALLY_TAGS = ['ul', 'ol', 'table', 'div', 'button', 'form'].join(','); // cleanHeaders
@@ -1489,7 +1489,7 @@ function getAttrs(node) {
   if (!attribs && attributes) {
     var attrs = _Reflect$ownKeys(attributes).reduce(function (acc, index) {
       var attr = attributes[index];
-      if (!attr.name || !attr.value) return acc;
+      if (!attr.name) return acc;
       acc[attr.name] = attr.value;
       return acc;
     }, {});
@@ -7846,6 +7846,12 @@ var RootExtractor = {
       };
     }
 
+    var extendedResults = {};
+
+    if (extractor.extend) {
+      extendedResults = selectExtendedTypes(extractor.extend, opts);
+    }
+
     var title = extractResult(_objectSpread({}, opts, {
       type: 'title'
     }));
@@ -7893,12 +7899,6 @@ var RootExtractor = {
     },
         url = _ref3.url,
         domain = _ref3.domain;
-
-    var extendedResults = {};
-
-    if (extractor.extend) {
-      extendedResults = selectExtendedTypes(extractor.extend, opts);
-    }
 
     return _objectSpread({
       title: title,
