@@ -362,7 +362,7 @@ var SPACER_RE = new RegExp('transparent|spacer|blank', 'i'); // The class we wil
 var KEEP_CLASS = 'mercury-parser-keep';
 var KEEP_SELECTORS = ['iframe[src^="https://www.youtube.com"]', 'iframe[src^="https://www.youtube-nocookie.com"]', 'iframe[src^="http://www.youtube.com"]', 'iframe[src^="https://player.vimeo"]', 'iframe[src^="http://player.vimeo"]', 'iframe[src^="https://www.redditmedia.com"]', 'blockquote[class^="instagram-media"]', 'blockquote[class^="twitter-tweet"]']; // A list of tags to strip from the output if we encounter them.
 
-var STRIP_OUTPUT_TAGS = ['title', 'script', 'noscript', 'link', 'style', 'hr', 'embed', 'iframe', 'object']; // cleanAttributes
+var STRIP_OUTPUT_TAGS = ['title', 'script', 'noscript', 'link', 'style', 'hr', 'embed', 'iframe', 'object', 'button']; // cleanAttributes
 var WHITELIST_ATTRS = ['src', 'sizes', 'type', 'href', 'class', 'id', 'alt', 'xlink:href', 'width', 'height', 'allowfullscreen', 'data-instgrm-.*'];
 var WHITELIST_ATTRS_RE = new RegExp("^(".concat(WHITELIST_ATTRS.join('|'), ")$"), 'i'); // removeEmpty
 
