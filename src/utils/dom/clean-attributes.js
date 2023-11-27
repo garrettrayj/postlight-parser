@@ -18,6 +18,10 @@ function removeAllButWhitelist($article, $) {
     );
   });
 
+  // Extra cleanup for invalid attributes
+  $('[src^="data:"]', $article).removeAttr('src');
+  $('[srcset^="data:"]', $article).removeAttr('srcset');
+
   // Remove the mercury-parser-keep class from result
   $(`.${KEEP_CLASS}`, $article).removeClass(KEEP_CLASS);
 

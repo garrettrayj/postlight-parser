@@ -362,8 +362,8 @@ var SPACER_RE = new RegExp('transparent|spacer|blank', 'i'); // The class we wil
 var KEEP_CLASS = 'mercury-parser-keep';
 var KEEP_SELECTORS = ['iframe[src^="https://www.youtube.com"]', 'iframe[src^="https://www.youtube-nocookie.com"]', 'iframe[src^="http://www.youtube.com"]', 'iframe[src^="https://player.vimeo"]', 'iframe[src^="http://player.vimeo"]', 'iframe[src^="https://www.redditmedia.com"]', 'blockquote[class^="instagram-media"]', 'blockquote[class^="twitter-tweet"]']; // A list of tags to strip from the output if we encounter them.
 
-var STRIP_OUTPUT_TAGS = ['title', 'script', 'noscript', 'link', 'style', 'hr', 'embed', 'iframe', 'object', 'button']; // cleanAttributes
-var WHITELIST_ATTRS = ['src', 'sizes', 'type', 'href', 'class', 'id', 'alt', 'xlink:href', 'width', 'height', 'allowfullscreen', 'data-instgrm-.*'];
+var STRIP_OUTPUT_TAGS = ['title', 'script', 'noscript', 'link', 'style', 'hr', 'embed', 'iframe', 'object', 'button', 'nav']; // cleanAttributes
+var WHITELIST_ATTRS = ['src', 'srcset', 'sizes', 'type', 'href', 'class', 'id', 'alt', 'xlink:href', 'width', 'height', 'allowfullscreen', 'data-instgrm-.*'];
 var WHITELIST_ATTRS_RE = new RegExp("^(".concat(WHITELIST_ATTRS.join('|'), ")$"), 'i'); // removeEmpty
 
 var CLEAN_CONDITIONALLY_TAGS = ['ul', 'ol', 'table', 'div', 'button', 'form'].join(','); // cleanHeaders
@@ -690,7 +690,10 @@ function removeAllButWhitelist($article, $) {
 
       return acc;
     }, {}));
-  }); // Remove the mercury-parser-keep class from result
+  }); // Extra cleanup for invalid attributes
+
+  $('[src^="data:"]', $article).removeAttr('src');
+  $('[srcset^="data:"]', $article).removeAttr('srcset'); // Remove the mercury-parser-keep class from result
 
   $(".".concat(KEEP_CLASS), $article).removeClass(KEEP_CLASS);
   return $article;
