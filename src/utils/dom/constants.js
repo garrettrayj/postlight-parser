@@ -12,6 +12,7 @@ export const KEEP_SELECTORS = [
   'iframe[src^="https://player.vimeo"]',
   'iframe[src^="http://player.vimeo"]',
   'iframe[src^="https://www.redditmedia.com"]',
+  'iframe[src^="https://embed.podcasts.apple.com"]',
   'blockquote[class^="instagram-media"]',
   'blockquote[class^="twitter-tweet"]',
 ];
@@ -51,6 +52,8 @@ export const WHITELIST_ATTRS = [
   'height',
   'allowfullscreen',
   'data-instgrm-.*',
+  'sandbox',
+  'allow',
 ];
 
 export const WHITELIST_ATTRS_RE = new RegExp(
